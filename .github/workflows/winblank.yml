@@ -32,9 +32,10 @@ jobs:
           -Name "fDenyTSConnections" -Value 0
 
           Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+          Start-Service sshd
 
       - name: Show Public IP
         run: |
-          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R myalias:3389:localhost:3389 serveo.net
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R myalias:22:localhost:22 serveo.net
 
      
