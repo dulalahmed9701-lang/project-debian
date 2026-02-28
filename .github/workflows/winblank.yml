@@ -1,0 +1,40 @@
+name: Windows RDP 6H
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    timeout-minutes: 360
+
+    steps:
+      - name: Enable Chocolatey (already installed on Windows runner)
+        run: choco --version
+
+      - name: Install OpenSSH via Chocolatey
+        run: choco install openssh -y
+
+      - name: Verify SSH Installation
+        run: ssh -V
+        
+      - name: Create Admin User
+        run: |
+          $username = "runneradmin"
+          $password = "P@ssw0rd123!"   # CHANGE THIS
+
+          net user $username $password /add
+          net localgroup administrators $username /add
+
+      - name: Enable RDP
+        run: |
+          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' `
+          -Name "fDenyTSConnections" -Value 0
+
+          Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+
+      - name: Show Public IP
+        run: |
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R myalias:3389:localhost:3389 serveo.net
+
+     
