@@ -37,6 +37,6 @@ jobs:
       - name: Show Public IP
         run: |
           #ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R myalias99:29:localhost:22 serveo.net
-          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R myalias:29:localhost:22 serveo.net
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -R myalias99:29:localhost:22 serveo.net
 
      
