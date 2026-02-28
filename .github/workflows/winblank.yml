@@ -20,7 +20,7 @@ jobs:
         
       - name: Create Admin User
         run: |
-          $username = "runneradmin"
+          $username = "runneradmin1"
           $password = "P@ssw0rd123!"   # CHANGE THIS
 
           net user $username $password /add
